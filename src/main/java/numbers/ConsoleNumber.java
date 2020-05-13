@@ -7,7 +7,7 @@ import java.util.Scanner;
 import static numbers.Numbers.*;
 
 /**
- * Class ConsoleNumber is responsible for interaction with user. It receive data and handles it.
+ * Class ConsoleNumber is responsible for interaction with user. It receives and executes commands.
  *
  * @author Igor Ivanov
  * @since 13.05.2020
@@ -23,23 +23,23 @@ public class ConsoleNumber
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
-        String enterData;
+        String enterCommand;
         while (true)
         {
             System.out.println("Please, enter integer number (or E for exit, min for view minimal number, max for view maximal number, avr for view average of all numbers):");
-            enterData = scanner.nextLine();
+            enterCommand = scanner.nextLine();
 
-            if (enterData == null)
+            if (enterCommand == null)
             {
                 continue;
             }
-            if (enterData.equalsIgnoreCase("e"))
+            if (enterCommand.equalsIgnoreCase("e"))
             {
                 break;
             }
             try
             {
-                command(enterData);
+                executeCommand(enterCommand);
             }
             catch (NoElementsException noElementsException)
             {
@@ -49,24 +49,24 @@ public class ConsoleNumber
     }
 
     /**
-     * This method receives user input data (String) and handles them:
-     * if input data equals "max"/"min"/"avr" - calls appropriate static methods of {@link Numbers} class;
-     * if input data equals integer number - parses it and transmits to {@link Numbers#addNumber(int)}.
+     * This method receives user input command (String) and execute it:
+     * if input command equals "max"/"min"/"avr" - calls appropriate static methods of {@link Numbers} class;
+     * if input command equals integer number - parses it and transmits to {@link Numbers#addNumber(int)}.
      *
-     * @param enterData Entered data by user.
+     * @param enterCommand Entered data by user.
      * @throws NoElementsException On call methods of {@link Numbers} class  when no entered numbers.
      */
-    private static void command(String enterData) throws NoElementsException
+    private static void executeCommand(String enterCommand) throws NoElementsException
     {
-        if (enterData.equalsIgnoreCase("max"))
+        if (enterCommand.equalsIgnoreCase("max"))
         {
             System.out.println(getMaxOfNumbers());
         }
-        else if (enterData.equalsIgnoreCase("min"))
+        else if (enterCommand.equalsIgnoreCase("min"))
         {
             System.out.println(getMinOfNumbers());
         }
-        else if (enterData.equalsIgnoreCase("avr"))
+        else if (enterCommand.equalsIgnoreCase("avr"))
         {
             System.out.println(getAverageOfAllNumbers());
         }
@@ -74,7 +74,7 @@ public class ConsoleNumber
         {
             try
             {
-                addNumber(Integer.parseInt(enterData));
+                addNumber(Integer.parseInt(enterCommand));
             }
             catch (NumberFormatException e)
             {
